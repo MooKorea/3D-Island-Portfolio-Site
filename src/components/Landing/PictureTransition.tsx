@@ -34,47 +34,33 @@ const clamp = (num: number, min: number, max: number) =>
   Math.min(Math.max(num, min), max);
 
 export default function PictureTransition() {
-  const [ref1, animate1] = useAnimate();
-  const [ref2, animate2] = useAnimate();
+  const [ref, animate] = useAnimate();
   const { scrollY } = useScroll();
   useMotionValueEvent(scrollY, "change", (latest) => {
-    const animationParams = (xPos: number) => {
-      return {
-        translateX: clamp(-latest * 0.3, xPos, 1000),
-        rotateY: clamp(latest * 0.2, 0, 180),
-        scale: clamp(latest * 0.005 + 1, 1, 7),
+    animate(
+      ref.current,
+      {
+        rotateY: clamp(latest * 0.3, 0, 180),
+        scale: clamp(latest * 0.007 + 1, 1, 8),
         transformPerspective: 200,
-      };
-    };
-    animate1(ref1.current, animationParams(400), { ease: easeOut });
-    animate2(ref2.current, animationParams(-123), { ease: easeOut });
+      },
+      { ease: easeOut }
+    );
   });
-
   useEffect(() => {
     const transform = {
-      translateX: 400,
-      translateY: 100,
+      translateX: "50vw",
+      translateY: "calc(50vh - 140px)",
     };
-    animate1(ref1.current, transform);
-    animate2(ref2.current, {
-      translateX: -123,
-      translateY: -90,
-    });
+    animate(ref.current, transform);
   }, []);
 
   return (
     <Container>
       <SVGContainer width="312" height="312" overflow="visible">
-        <Image
-          ref={ref2}
-          href="/soy-boy.webp"
-          width="100%"
-          height="100%"
-          preserveAspectRatio="none"
-        />
         <defs>
           <clipPath id="svgPath">
-            <Clip width="312" height="312" ref={ref1} />
+            <Clip width="312" height="312" ref={ref} />
           </clipPath>
         </defs>
       </SVGContainer>
