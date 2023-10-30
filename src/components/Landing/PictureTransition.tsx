@@ -20,11 +20,6 @@ const SVGContainer = styled.svg`
   transform-style: preserve-3d;
 `;
 
-const Image = styled(motion.image)`
-  z-index: 6;
-  backface-visibility: hidden;
-`;
-
 const Clip = styled(motion.rect)`
   z-index: -2;
   backface-visibility: hidden;

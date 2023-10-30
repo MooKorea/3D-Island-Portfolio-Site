@@ -21,7 +21,7 @@ const NavButton = styled.div`
   align-items: center;
   transition: 0.2s;
   &:hover {
-    background-color: #858585;
+   background-color: #858585;
     cursor: pointer;
     color: black;
   }

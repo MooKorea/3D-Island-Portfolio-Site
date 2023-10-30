@@ -1,5 +1,5 @@
 import { useFrame, useThree } from "@react-three/fiber";
-import { useRef, useState, useEffect, useMemo } from "react";
+import { useRef, useState, useMemo } from "react";
 import { Group, Mesh, Vector3 } from "three";
 import { Model } from "../../assets/Island";
 import { RoundedBox, Environment, useEnvironment } from "@react-three/drei";
