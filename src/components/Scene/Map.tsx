@@ -2,7 +2,7 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { useRef, useState, useMemo } from "react";
 import { Group, Mesh, Vector3 } from "three";
 import { Model } from "../../assets/Island";
-import { RoundedBox, Environment, useEnvironment } from "@react-three/drei";
+import { RoundedBox, Environment, useEnvironment, OrbitControls } from "@react-three/drei";
 import CameraControls from "camera-controls";
 import * as THREE from 'three'
 
@@ -53,7 +53,7 @@ export default function Map() {
     ref.current.position.y = state.pointer.y * 0.2;
   });
 
-  const envMap = useEnvironment({ files: "src/assets/animestyled_hdr3.hdr" });
+  const envMap = useEnvironment({ files: "/animestyled_hdr3.hdr" });
 
   const [zoom, setZoom] = useState(false)
   const [focus, setFocus] = useState(new Vector3(0, 0, 0))
