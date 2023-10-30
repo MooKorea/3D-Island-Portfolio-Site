@@ -1,9 +1,7 @@
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 import { styled } from "styled-components";
-import { Model } from "../assets/Island";
-import { Group, NoToneMapping } from "three";
-import { useRef, useState } from "react";
-import { Environment, useEnvironment } from "@react-three/drei";
+import { NoToneMapping } from "three";
+import { useState } from "react";
 import {
   useAnimate,
   useMotionValueEvent,
@@ -12,27 +10,7 @@ import {
   useMotionValue,
   motion,
 } from "framer-motion";
-
-function Container() {
-  const ref = useRef<Group>(null!);
-
-  useFrame((state) => {
-    ref.current.position.x = 0.5 + state.pointer.x * 0.2;
-    ref.current.position.y = state.pointer.y * 0.2;
-  });
-
-  const envMap = useEnvironment({ files: "src/assets/animestyled_hdr3.hdr" });
-
-  return (
-    <>
-      <group ref={ref}>
-        <Environment map={envMap} background />
-        <ambientLight intensity={1} />
-        <Model />
-      </group>
-    </>
-  );
-}
+import Map from "./Map";
 
 const CanvasContainer = styled.div`
   width: 100vw;
@@ -58,7 +36,6 @@ export default function Scene() {
   const { scrollY } = useScroll();
   const rotationThreshold = useMotionValue(0);
   rotationThreshold.on("change", (latest) => {
-    console.log(latest)
     setPFPVisible(latest > 51.5);
   });
 
@@ -90,7 +67,7 @@ export default function Scene() {
         camera={{ fov: 35, position: [-5, 10, 15] }}
         gl={{ antialias: true, toneMapping: NoToneMapping }}
       >
-        <Container />
+        <Map />
       </Canvas>
     </CanvasContainer>
   );

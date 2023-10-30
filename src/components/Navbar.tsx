@@ -1,6 +1,5 @@
 import { styled } from "styled-components";
 import Simian_Segue from "../assets/music/Simian_Segue.mp3";
-import { useEffect } from "react";
 
 const NavContainer = styled.div`
   width: 100vw;
