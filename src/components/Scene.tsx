@@ -1,38 +1,47 @@
 import { Canvas, useFrame } from "@react-three/fiber";
-import { NavHeight } from "./Navbar";
 import { styled } from "styled-components";
-import { Model } from "./Island";
-import { Group, Vector3, NoToneMapping } from "three";
+import { Model } from "../assets/Island";
+import { Group, NoToneMapping } from "three";
 import { useRef } from "react";
-import { Sky } from "@react-three/drei";
+import { Environment, useEnvironment } from "@react-three/drei";
 
 function Container() {
   const ref = useRef<Group>(null!);
 
   useFrame((state) => {
-    ref.current.position.x = state.pointer.x * 0.2;
+    ref.current.position.x = 0.5 + state.pointer.x * 0.2;
     ref.current.position.y = state.pointer.y * 0.2;
   });
 
+  const envMap = useEnvironment({ files: "src/assets/animestyled_hdr3.hdr" });
+
   return (
-    <group ref={ref}>
-      <ambientLight intensity={1}/>
-      <Model />
-    </group>
+    <>
+      <group ref={ref}>
+        <Environment map={envMap} background />
+        <ambientLight intensity={1} />
+        <Model />
+      </group>
+    </>
   );
 }
 
 const CanvasContainer = styled.div`
   width: 100vw;
-  height: calc(100vh - ${NavHeight});
+  height: 100vh;
+  z-index: 6;
+  position: fixed;
+  clip-path: url(#svgPath);
 `;
 
 export default function Scene() {
   return (
     <CanvasContainer>
-      <Canvas camera={{ fov: 35, position: [-5, 10, 15] }} gl={{ antialias: true, toneMapping: NoToneMapping }}>
+      <Canvas
+        camera={{ fov: 35, position: [-5, 10, 15] }}
+        gl={{ antialias: true, toneMapping: NoToneMapping }}
+      >
         <Container />
-        <Sky sunPosition={new Vector3(5, 0.4, 1)} />
       </Canvas>
     </CanvasContainer>
   );

@@ -1,15 +1,19 @@
 import { styled } from "styled-components";
+import Simian_Segue from "../assets/music/Simian_Segue.mp3";
+import { useEffect } from "react";
 
 const NavContainer = styled.div`
   width: 100vw;
   background-color: #000000;
   color: #d1d1d1;
   display: flex;
-  font-family: Arial, Helvetica, sans-serif;
   font-weight: 700;
+  position: fixed;
+  top: 0;
+  z-index: 10;
 `;
 
-export const NavHeight = "4em"
+export const NavHeight = "4em";
 
 const NavButton = styled.div`
   height: ${NavHeight};
@@ -25,11 +29,13 @@ const NavButton = styled.div`
 `;
 
 export default function Navbar() {
+  const audio = new Audio(Simian_Segue)
+
   return (
     <NavContainer>
       <NavButton>Button</NavButton>
-      <NavButton>Button</NavButton>
-      <NavButton>Button</NavButton>
+      <NavButton onClick={() => audio.play()}>Play</NavButton>
+      <NavButton onClick={() => audio.pause()}>Pause</NavButton>
     </NavContainer>
   );
 }
