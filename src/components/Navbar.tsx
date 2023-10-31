@@ -3,7 +3,8 @@ import Simian_Segue from "../assets/music/Simian_Segue.mp3";
 
 const NavContainer = styled.div`
   width: 100vw;
-  background-color: #000000;
+  background-color: #000000b5;
+  backdrop-filter: blur(8px); 
   color: #d1d1d1;
   display: flex;
   font-weight: 700;
