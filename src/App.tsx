@@ -2,6 +2,7 @@ import Landing from "./components/Landing";
 import Navbar from "./components/Navbar";
 import Scene from "./components/Scene";
 import { createGlobalStyle } from "styled-components";
+import "./style.css";
 
 const GlobalStyle = createGlobalStyle`
   * {

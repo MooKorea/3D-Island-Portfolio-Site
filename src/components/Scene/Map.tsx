@@ -2,20 +2,22 @@ import { useFrame } from "@react-three/fiber";
 import { useRef, useState } from "react";
 import { Group, Vector3 } from "three";
 import { Model } from "../../assets/Island";
-import { Environment, useEnvironment } from "@react-three/drei";
+import { Environment, useEnvironment, OrbitControls } from "@react-three/drei";
 import Camera from "./Camera";
 import Plot from "./Plot";
+import { useCameraContext } from "./Contexts";
 
 export default function Map() {
+  const { isFreeLook } = useCameraContext();
+
   const ref = useRef<Group>(null!);
   useFrame((state) => {
+    if (isFreeLook) return
     ref.current.position.x = 0.5 + state.pointer.x * 0.2;
     ref.current.position.y = state.pointer.y * 0.2;
   });
 
   const envMap = useEnvironment({ files: "/animestyled_hdr3.hdr" });
-
-  const [zoom, setZoom] = useState(false);
   const [focus, setFocus] = useState(new Vector3(0, 0, 0));
 
   const plotPositions = [
@@ -30,10 +32,11 @@ export default function Map() {
       <Environment map={envMap} background="only" />
       <hemisphereLight args={["#fff", "#333", 1]} />
       <Model />
-      {plotPositions.map((e) => {
-        return <Plot setFocus={setFocus} setZoom={setZoom} zoom={zoom} position={e} />
+      {plotPositions.map((e, i) => {
+        return <Plot setFocus={setFocus} position={e} key={i} />;
       })}
-      <Camera zoom={zoom} focus={focus} />
+      {isFreeLook && <OrbitControls />}
+      <Camera focus={focus} />
     </group>
   );
 }
