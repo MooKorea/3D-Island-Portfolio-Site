@@ -28,7 +28,7 @@ export default function ProfilePic() {
     setPFPVisible(latest > 51.5);
   });
 
-  const [PFPVisible, setPFPVisible] = useState(true);
+  const [PFPVisible, setPFPVisible] = useState(false);
   useMotionValueEvent(scrollY, "change", (latest) => {
     animate(
       ref.current,
