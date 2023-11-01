@@ -3,15 +3,17 @@ import { useState } from "react";
 import { Vector3 } from "three";
 import { useCameraContext } from "./Contexts";
 import PlotBubble from "./MapUI/PlotBubble";
+import Select from "../../assets/sounds/Select.ogg";
 
 interface Plot {
-  setFocus: React.Dispatch<React.SetStateAction<Vector3>>;
   position: Vector3;
+  index: number;
 }
 
-export default function Plot({ setFocus, position }: Plot) {
-  const { isFreeLook, isZoom, setIsZoom } = useCameraContext();
+export default function Plot({ position, index }: Plot) {
+  const { isFreeLook, isZoom, setIsZoom, setCurrentPos, setFocus } = useCameraContext();
   const [isHovered, setIsHovered] = useState(false);
+  const audio = new Audio(Select)
 
   return (
     <group>
@@ -24,7 +26,9 @@ export default function Plot({ setFocus, position }: Plot) {
         onClick={(e) => {
           if (isFreeLook) return;
           setFocus(e.object.position);
+          setCurrentPos(index)
           setIsZoom(!isZoom);
+          audio.play()
         }}
         onPointerOver={() => setIsHovered(true)}
         onPointerOut={() => setIsHovered(false)}

@@ -2,6 +2,55 @@ import { useCameraContext } from "../Contexts";
 import { NavHeight } from "../../Navbar";
 import { motion, easeInOut } from "framer-motion";
 import { styled } from "styled-components";
+import { plotPositions } from "../Map";
+import { useEffect } from "react";
+import Scroll from "../../../assets/sounds/Scroll.ogg";
+
+const ButtonContainer = styled.div`
+  position: absolute;
+  top: 0;
+  right: calc(-6em - 1em);
+  height: 3em;
+  width: 6em;
+  display: flex;
+  border-radius: 40px;
+  overflow: hidden;
+  z-index: 3;
+  `
+
+const Button = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: #ffffffb9;
+  pointer-events: all;
+  transition: 0.2s;
+  &:hover {
+    cursor: pointer;
+    background-color: #ffffff90;
+  }
+`
+function NavigateButtons() {
+  const { currentPos, setCurrentPos, setFocus } = useCameraContext();
+  const audio = new Audio(Scroll)
+  const handleNavigation = (direction:number) => {
+    if (currentPos === 0 && direction === -1) return
+    if (currentPos === plotPositions.length - 1 && direction === 1) return
+    setCurrentPos(currentPos + direction)
+    audio.play()
+  }
+  
+  useEffect(() => {
+    setFocus(plotPositions[currentPos])
+  }, [currentPos])
+
+
+  return (
+    <ButtonContainer>
+      <Button onClick={() => handleNavigation(-1)}/>
+      <Button onClick={() => handleNavigation(1)}/>
+    </ButtonContainer>
+  )
+}
 
 const SidebarContainer = styled(motion.div)`
   @media (min-width: 1200px) {
@@ -31,6 +80,7 @@ export default function Sidebar() {
         animate={{ opacity: isZoom ? 1 : 0, x: isZoom ? 0 : -100 }}
         transition={{ ease: easeInOut, duration: 0.7 }}
       >
+        <NavigateButtons />
         <h2>I like bread</h2>
         <p>
           A drop shadow is effectively a blurred, offset version of the input image's alpha

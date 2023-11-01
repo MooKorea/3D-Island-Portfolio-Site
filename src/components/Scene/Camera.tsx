@@ -7,17 +7,15 @@ import { useCameraContext } from "./Contexts";
 
 CameraControls.install({ THREE });
 interface Controls {
-  focus: Vector3;
   pos?: Vector3;
   look?: Vector3;
 }
 
 export default function Camera({
-  focus,
   pos = new Vector3(),
   look = new Vector3(),
 }: Controls) {
-  const { isFreeLook, isZoom } = useCameraContext();
+  const { isFreeLook, isZoom, focus } = useCameraContext();
 
   const camera = useThree((state) => state.camera);
   const gl = useThree((state) => state.gl);

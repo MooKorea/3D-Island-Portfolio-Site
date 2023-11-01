@@ -1,10 +1,15 @@
 import { createContext, useContext, useState } from "react";
+import { Vector3 } from "three";
 
 type CameraContext = {
   isFreeLook: boolean;
   setIsFreeLook: React.Dispatch<React.SetStateAction<boolean>>;
   isZoom: boolean;
   setIsZoom: React.Dispatch<React.SetStateAction<boolean>>;
+  currentPos: number;
+  setCurrentPos: React.Dispatch<React.SetStateAction<number>>;
+  focus: Vector3;
+  setFocus: React.Dispatch<React.SetStateAction<Vector3>>;
 };
 
 const CameraContext = createContext<CameraContext | null>(null);
@@ -12,8 +17,22 @@ const CameraContext = createContext<CameraContext | null>(null);
 export function CameraContextProvider({ children }: { children: React.ReactNode }) {
   const [isFreeLook, setIsFreeLook] = useState(false);
   const [isZoom, setIsZoom] = useState(false);
+  const [currentPos, setCurrentPos] = useState(0);
+  const [focus, setFocus] = useState(new Vector3(0, 0, 0));
+
   return (
-    <CameraContext.Provider value={{ isFreeLook, setIsFreeLook, isZoom, setIsZoom }}>
+    <CameraContext.Provider
+      value={{
+        isFreeLook,
+        setIsFreeLook,
+        isZoom,
+        setIsZoom,
+        currentPos,
+        setCurrentPos,
+        focus,
+        setFocus,
+      }}
+    >
       {children}
     </CameraContext.Provider>
   );

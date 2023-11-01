@@ -4,7 +4,6 @@ import { NoToneMapping } from "three";
 import Map from "./Map";
 import ProfilePic from "./ProfilePic";
 import MapUI from "./MapUI";
-import { createContext } from "react";
 import { CameraContextProvider } from "./Contexts";
 
 const CanvasContainer = styled.div`
@@ -14,15 +13,8 @@ const CanvasContainer = styled.div`
   position: fixed;
   clip-path: url(#svgPath);
 `;
-type CameraContext = {
-  isFreeLook: boolean;
-  setIsFreeLook: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-export const CameraContext = createContext<CameraContext>({} as CameraContext);
 
 export default function Scene() {
-
   return (
     <CanvasContainer>
       <ProfilePic />

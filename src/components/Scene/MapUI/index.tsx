@@ -8,6 +8,7 @@ const Container = styled.div`
   position: absolute;
   pointer-events: none;
   top: 0;
+  z-index: 2;
 `;
 
 export default function MapUI() {
