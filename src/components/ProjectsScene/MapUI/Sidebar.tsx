@@ -1,4 +1,4 @@
-import { useCameraContext } from "../Contexts";
+import { useCameraContext } from "../../Contexts";
 import { NavHeight } from "../../Navbar";
 import { motion, easeInOut } from "framer-motion";
 import { styled } from "styled-components";

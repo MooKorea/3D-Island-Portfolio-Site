@@ -3,7 +3,7 @@ import * as THREE from "three";
 import { useFrame, useThree } from "@react-three/fiber";
 import { useMemo } from "react";
 import { Vector3 } from "three";
-import { useCameraContext } from "./Contexts";
+import { useCameraContext } from "../Contexts";
 
 CameraControls.install({ THREE });
 interface Controls {

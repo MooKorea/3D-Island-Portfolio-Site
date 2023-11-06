@@ -1,4 +1,4 @@
-import { useCameraContext, UIState } from "../Contexts";
+import { useCameraContext, UIState } from "../../Contexts";
 import { useEffect } from "react";
 import { styled } from "styled-components";
 import { motion, useAnimate, easeOut } from "framer-motion";

@@ -1,4 +1,3 @@
-import Navbar from "./components/Navbar";
 import Scene from "./components";
 import { createGlobalStyle } from "styled-components";
 import "./style.css";
@@ -21,7 +20,6 @@ export default function App() {
   return (
     <>
       <GlobalStyle />
-      {/* <Navbar /> */}
       <Scene />
     </>
   );

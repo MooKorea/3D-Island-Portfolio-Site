@@ -1,7 +1,7 @@
 import { RoundedBox } from "@react-three/drei";
 import { useState, useRef, useEffect } from "react";
 import { Mesh, Vector3 } from "three";
-import { useCameraContext } from "./Contexts";
+import { useCameraContext } from "../Contexts";
 import PlotBubble from "./MapUI/PlotBubble";
 import Select from "../../assets/sounds/Select.ogg";
 import { ThreeEvent } from "@react-three/fiber";
@@ -21,6 +21,7 @@ export default function Plot({ position, index, amount }: Plot) {
     setFocus,
     plotWorldPositions,
     setPlotWorldPositions,
+    setCameraSpeed
   } = useCameraContext();
   const [isHovered, setIsHovered] = useState(false);
   const audio = new Audio(Select);
@@ -54,6 +55,7 @@ export default function Plot({ position, index, amount }: Plot) {
           handleFocus(e);
           setCurrentPos(index);
           setIsZoom(!isZoom);
+          setCameraSpeed(1)
           audio.play();
         }}
         onPointerOver={() => setIsHovered(true)}

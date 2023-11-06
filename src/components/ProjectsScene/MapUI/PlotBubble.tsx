@@ -2,7 +2,7 @@ import { Html } from "@react-three/drei";
 import { Vector3 } from "three";
 import { motion, useAnimate } from "framer-motion";
 import { useEffect } from "react";
-import { useCameraContext } from "../Contexts";
+import { useCameraContext } from "../../Contexts";
 import { styled } from "styled-components";
 
 const Bubble = styled.div`

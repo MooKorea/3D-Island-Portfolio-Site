@@ -2,9 +2,9 @@ import { Canvas } from "@react-three/fiber";
 import { styled } from "styled-components";
 import { NoToneMapping } from "three";
 import Map from "./Map";
-import MapUI from "./Scene/MapUI";
-import { CameraContextProvider } from "./Scene/Contexts";
-import Camera from "./Scene/Camera";
+import MapUI from "./ProjectsScene/MapUI";
+import { CameraContextProvider } from "./Contexts";
+import Camera from "./ProjectsScene/Camera";
 
 const CanvasContainer = styled.div`
   width: 100vw;
