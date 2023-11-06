@@ -4,9 +4,9 @@ import { styled } from "styled-components";
 import { motion, useAnimate, easeOut } from "framer-motion";
 import { Button } from "../../../assets/Styles";
 
-const BottomContainer = styled(motion.div)`
+const TopContainer = styled(motion.div)`
   position: absolute;
-  bottom: 0;
+  top: 0;
   width: 100%;
   height: 100px;
   display: flex;
@@ -15,25 +15,25 @@ const BottomContainer = styled(motion.div)`
 `;
 
 export default function BottomButtons() {
-  const { isFreeLook, setIsFreeLook, isZoom, UI } = useCameraContext();
+  const { UI, setUI, isZoom, isFreeLook } = useCameraContext();
   const [scope, animate] = useAnimate();
   useEffect(() => {
     animate(
       scope.current,
       {
-        y: isZoom || UI !== UIState.Map ? "100%" : 0,
+        y: isZoom || isFreeLook || UI !== UIState.Map ? "-100%" : 0,
       },
       { ease: easeOut }
     );
-  }, [isZoom, UI]);
+  }, [isZoom, isFreeLook, UI]);
   return (
-    <BottomContainer ref={scope} initial={{ y: "100%" }}>
+    <TopContainer ref={scope} initial={{ y: "-100%" }}>
       <Button
-        onClick={() => setIsFreeLook(!isFreeLook)}
+        onClick={() => setUI(UIState.Home)}
         style={{ pointerEvents: isZoom ? "none" : "all" }}
       >
-        {isFreeLook ? "Back" : "Free Look"}
+        Back
       </Button>
-    </BottomContainer>
+    </TopContainer>
   );
 }

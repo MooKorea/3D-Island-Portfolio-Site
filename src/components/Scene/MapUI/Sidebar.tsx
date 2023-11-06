@@ -2,7 +2,6 @@ import { useCameraContext } from "../Contexts";
 import { NavHeight } from "../../Navbar";
 import { motion, easeInOut } from "framer-motion";
 import { styled } from "styled-components";
-import { plotPositions } from "../Map";
 import { useEffect } from "react";
 import Scroll from "../../../assets/sounds/Scroll.ogg";
 
@@ -30,19 +29,18 @@ const Button = styled.div`
   }
 `
 function NavigateButtons() {
-  const { currentPos, setCurrentPos, setFocus } = useCameraContext();
+  const { currentPos, setCurrentPos, setFocus, plotWorldPositions } = useCameraContext();
   const audio = new Audio(Scroll)
   const handleNavigation = (direction:number) => {
     if (currentPos === 0 && direction === -1) return
-    if (currentPos === plotPositions.length - 1 && direction === 1) return
+    if (currentPos === plotWorldPositions.length - 1 && direction === 1) return
     setCurrentPos(currentPos + direction)
     audio.play()
   }
   
   useEffect(() => {
-    setFocus(plotPositions[currentPos])
+    setFocus(plotWorldPositions[currentPos])
   }, [currentPos])
-
 
   return (
     <ButtonContainer>
@@ -77,6 +75,7 @@ export default function Sidebar() {
     const { isZoom } = useCameraContext();
     return (
       <SidebarContainer
+        initial={{opacity: 0}}
         animate={{ opacity: isZoom ? 1 : 0, x: isZoom ? 0 : -100 }}
         transition={{ ease: easeInOut, duration: 0.7 }}
       >

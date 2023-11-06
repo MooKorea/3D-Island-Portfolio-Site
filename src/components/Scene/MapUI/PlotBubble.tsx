@@ -7,6 +7,7 @@ import { styled } from "styled-components";
 
 const Bubble = styled.div`
   backdrop-filter: blur(8px);
+  background-color: #ffffff47;
   width: 100px;
   display: flex;
   justify-content: center;
@@ -16,6 +17,7 @@ const Bubble = styled.div`
   position: relative;
   overflow: hidden;
   left: -50%;
+  height: 2em;
 `;
 
 const Description = styled(motion.div)`

@@ -11,11 +11,8 @@ interface Controls {
   look?: Vector3;
 }
 
-export default function Camera({
-  pos = new Vector3(),
-  look = new Vector3(),
-}: Controls) {
-  const { isFreeLook, isZoom, focus } = useCameraContext();
+export default function Camera({ pos = new Vector3(), look = new Vector3() }: Controls) {
+  const { isFreeLook, isZoom, focus, defaultLook, cameraSpeed } = useCameraContext();
 
   const camera = useThree((state) => state.camera);
   const gl = useThree((state) => state.gl);
@@ -23,8 +20,10 @@ export default function Camera({
 
   return useFrame((state, delta) => {
     if (isFreeLook) return;
-    isZoom ? pos.set(focus.x, focus.y + 2, focus.z + 5) : pos.set(-5, 10, 15);
-    isZoom ? look.set(focus.x, focus.y, focus.z - 0.2) : look.set(0, 0, 0);
+    isZoom ? pos.set(focus.x, focus.y + 2, focus.z + 5) : pos.set(0, 0, 0);
+    isZoom
+      ? look.set(focus.x, focus.y - 0.5, focus.z - 0.2)
+      : look.set(defaultLook.x, defaultLook.y, defaultLook.z);
 
     state.camera.position.lerp(pos, 0.5);
     state.camera.updateProjectionMatrix();
@@ -38,6 +37,6 @@ export default function Camera({
       look.z,
       true
     );
-    return controls.update(delta);
+    return controls.update(delta * cameraSpeed);
   });
 }

@@ -1,6 +1,5 @@
-import Landing from "./components/Landing";
 import Navbar from "./components/Navbar";
-import Scene from "./components/Scene";
+import Scene from "./components";
 import { createGlobalStyle } from "styled-components";
 import "./style.css";
 
@@ -16,19 +15,14 @@ const GlobalStyle = createGlobalStyle`
     overflow-x: hidden;
     font-family: 'Nunito', sans-serif;
   }
-
-  #root {
-    height: 3000px;
-  }
 `;
 
 export default function App() {
   return (
     <>
       <GlobalStyle />
-      <Navbar />
+      {/* <Navbar /> */}
       <Scene />
-      <Landing />
     </>
   );
 }
