@@ -1,6 +1,7 @@
 import Scene from "./components";
 import { createGlobalStyle } from "styled-components";
 import "./style.css";
+import { styled } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -16,11 +17,18 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+const CanvasContainer = styled.div`
+  width: 100vw;
+  height: 100vh;
+  z-index: 6;
+  position: fixed;
+`;
+
 export default function App() {
   return (
-    <>
+    <CanvasContainer>
       <GlobalStyle />
       <Scene />
-    </>
+    </CanvasContainer>
   );
 }
