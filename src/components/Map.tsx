@@ -61,7 +61,7 @@ export default function Map() {
   const texture = useTexture("/soy-boy.webp");
   const { nodes } = usePanels();
   return (
-    <group position={[0, -0.7, -6]}>
+    <group position={[0, 0, -6]}>
       <mesh geometry={nodes.Models.geometry} position={[-2.541, 0, 0]}>
         <meshPhysicalMaterial />
       </mesh>

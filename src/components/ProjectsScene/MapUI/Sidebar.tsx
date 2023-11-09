@@ -1,5 +1,4 @@
 import { useCameraContext } from "../../Contexts";
-import { NavHeight } from "../../Navbar";
 import { motion, easeInOut } from "framer-motion";
 import { styled } from "styled-components";
 import { useEffect } from "react";
@@ -53,16 +52,15 @@ function NavigateButtons() {
 const SidebarContainer = styled(motion.div)`
   @media (min-width: 1200px) {
     left: calc(15vw - 100px);
-    height: calc(100vh - ${NavHeight} - 8em);
-    top: calc(4em + ${NavHeight});
+    height: calc(100vh - 8em);
+    top: 4em;
     width: 25vw;
     border-radius: 2em;
   }
 
   position: absolute;
   left: 0;
-  top: ${NavHeight};
-  height: calc(100% - ${NavHeight});
+  height: 100%;
   width: 350px;
   background: radial-gradient(circle, #ddfcf8a7 0%, rgba(161, 187, 209, 0.144) 100%);
   backdrop-filter: blur(50px);
