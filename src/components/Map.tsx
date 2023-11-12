@@ -76,7 +76,10 @@ export default function Map() {
       />
       <motion.mesh
         animate={controls}
-        onClick={() => setUI(UIState.Map)}
+        onClick={() => {
+          setUI(UIState.Map);
+          onPointerOut();
+        }}
         onPointerEnter={() => {
           if (isOpen) return;
           onPointerOver();

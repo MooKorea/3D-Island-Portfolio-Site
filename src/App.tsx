@@ -2,6 +2,9 @@ import Scene from "./components";
 import { createGlobalStyle } from "styled-components";
 import "./style.css";
 import { styled } from "styled-components";
+import Geomatic from "./assets/Geomatic-Black.otf";
+import UI from "./components/UI";
+import { CameraContextProvider } from "./components/Contexts";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -15,20 +18,29 @@ const GlobalStyle = createGlobalStyle`
     overflow-x: hidden;
     font-family: 'Nunito', sans-serif;
   }
+
+  @font-face {
+    font-family: 'Geomatic';
+    src: url(${Geomatic});
+    font-style: normal;
+    font-weight: 800;
+  }
 `;
 
 const CanvasContainer = styled.div`
   width: 100vw;
   height: 100vh;
-  z-index: 6;
   position: fixed;
 `;
 
 export default function App() {
   return (
-    <CanvasContainer>
-      <GlobalStyle />
-      <Scene />
-    </CanvasContainer>
+    <CameraContextProvider>
+      <CanvasContainer>
+        <GlobalStyle />
+        <Scene />
+      </CanvasContainer>
+      <UI />
+    </CameraContextProvider>
   );
 }
