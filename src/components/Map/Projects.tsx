@@ -1,21 +1,17 @@
+import usePointerHover from "../../hooks/usePointerHover";
+import { OrbitControls, MeshPortalMaterial, PortalMaterialType } from "@react-three/drei";
+import PlotContainer from "../ProjectsScene/PlotContainer";
 import { Vector3 } from "three";
-import {
-  useTexture,
-  OrbitControls,
-  MeshPortalMaterial,
-  PortalMaterialType,
-} from "@react-three/drei";
-import { useCameraContext, UIState } from "./Contexts";
+import React, { useEffect, useRef, useState } from "react";
 import { AnimationControls, easeInOut, useAnimation } from "framer-motion";
+import { UIState } from "../Contexts";
+import { useCameraContext } from "../Contexts";
 import { motion } from "framer-motion-3d";
-import usePointerHover from "../hooks/usePointerHover";
-import { useEffect, useRef, useState } from "react";
+import { usePanels } from "../../assets/Panels";
 import { useFrame } from "@react-three/fiber";
 import { easing } from "maath";
-import PlotContainer from "./ProjectsScene/PlotContainer";
-import { usePanels } from "../assets/Panels";
 
-export default function Map() {
+export default function Projects({ children }: { children: React.ReactNode }) {
   const { onPointerOver, onPointerOut } = usePointerHover();
   const { isFreeLook, setDefaultLook, UI, setUI, setCameraSpeed } = useCameraContext();
 
@@ -58,16 +54,10 @@ export default function Map() {
     setIsOpen(UI === UIState.Map);
   }, [UI]);
 
-  const texture = useTexture("/soy-boy.webp");
   const { nodes } = usePanels();
+
   return (
-    <group position={[0, 0, -6]}>
-      <mesh geometry={nodes.Models.geometry} position={[-2.541, 0, 0]}>
-        <meshPhysicalMaterial />
-      </mesh>
-      <mesh geometry={nodes.Models_Reverse.geometry} position={[-2.541, 0, 0]}>
-        <meshPhysicalMaterial />
-      </mesh>
+    <>
       <PanelBackSide
         isFreeLook={isFreeLook}
         isFade={isFade}
@@ -90,15 +80,9 @@ export default function Map() {
         }}
         geometry={nodes.Projects.geometry}
       >
-        <meshBasicMaterial map={texture} />
+        <MeshPortalMaterial worldUnits={true}>{children}</MeshPortalMaterial>
       </motion.mesh>
-      <mesh geometry={nodes.Skills.geometry} position={[2.538, 0, 0]}>
-        <meshPhysicalMaterial />
-      </mesh>
-      <mesh geometry={nodes.Skills_Reverse.geometry} position={[2.538, 0, 0]}>
-        <meshPhysicalMaterial />
-      </mesh>
-    </group>
+    </>
   );
 }
 

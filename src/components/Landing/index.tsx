@@ -2,8 +2,7 @@ import { motion } from "framer-motion-3d";
 import { useFrame } from "@react-three/fiber";
 import Map from "../Map";
 import { useEffect, useRef, useState } from "react";
-import { Group } from "three";
-import { MeshPortalMaterial, PortalMaterialType, Scroll, useScroll } from "@react-three/drei";
+import { MeshPortalMaterial, PortalMaterialType } from "@react-three/drei";
 import Name from "./Name";
 import { Senti } from "../../assets/Senti";
 import { easing } from "maath";
@@ -12,26 +11,19 @@ interface Landing {
   setScrollAmount: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export default function Landing({setScrollAmount} : Landing) {
-  const ref = useRef<Group>(null!);
-  const data = useScroll();
+export default function Landing({ setScrollAmount }: Landing) {
   const portal = useRef<PortalMaterialType>(null!);
-  const [isFade, setisFade] = useState(false)
-
+  const [isFade, setisFade] = useState(false);
   useFrame((_state, dt) => {
-    //Map Buttons
-    const r2 = data.range(0, 1);
-    ref.current.position.y = -3.7 + r2 * 3;
-
-    easing.damp(portal.current, "blend", isFade ? 1 : 0, 0.1, dt)
+    easing.damp(portal.current, "blend", isFade ? 1 : 0, 0.1, dt);
   });
 
   useEffect(() => {
     setTimeout(() => {
-      setisFade(true)
-      setScrollAmount(1)
+      setisFade(true);
+      setScrollAmount(1);
     }, 5000);
-  }, [])
+  }, []);
 
   return (
     <>
@@ -60,17 +52,13 @@ export default function Landing({setScrollAmount} : Landing) {
           <pointLight position={[0, 10, -15]} intensity={200} color="#ecd8b8" />
           <pointLight position={[2, -3, -30]} intensity={200} color="#f1e8cc" />
           <pointLight position={[-2, -10, -6]} intensity={100} color="#eb878c" />
-          <Scroll>
-            <Name />
-            <mesh position={[0, 0, -50]} scale={20}>
-              <planeGeometry args={[4, 4, 4]} />
-              <meshPhysicalMaterial />
-            </mesh>
-            <Senti />
-            <group ref={ref}>
-              <Map />
-            </group>
-          </Scroll>
+          <Name />
+          <mesh position={[0, 0, -50]} scale={20}>
+            <planeGeometry args={[4, 4, 4]} />
+            <meshPhysicalMaterial />
+          </mesh>
+          <Senti />
+          <Map />
         </MeshPortalMaterial>
       </motion.mesh>
     </>

@@ -30,13 +30,6 @@ export default function Name({ svg = false }: Landing) {
     }, 1000);
   }, []);
 
-  // useEffect(() => {
-  //   if (material.current === null) return
-  //   // if (material.current.uniforms.Dissolve_Factor === undefined) return
-  //   material.current.uniforms.Dissolve_Factor.value = 0.5
-  //   console.log(material.current.uniforms.Dissolve_Factor.value)
-  // }, [material])
-
   const material = useRef<any>(null!);
   const scroll = useScroll();
   useFrame(() => {
@@ -59,19 +52,17 @@ export default function Name({ svg = false }: Landing) {
     );
   } else {
     return (
-      <>
-        <Text
-          anchorX="center"
-          anchorY="middle"
-          font={Geomatic}
-          position={[0, -0.035, -5]}
-          scale={0.63}
-          castShadow
-        >
-          Andrew Cao
-          <NodeToyMaterial data={data} ref={material} />
-        </Text>
-      </>
+      <Text
+        anchorX="center"
+        anchorY="middle"
+        font={Geomatic}
+        position={[0, -0.035, -5]}
+        scale={0.63}
+        castShadow
+      >
+        Andrew Cao
+        <NodeToyMaterial data={data} ref={material} />
+      </Text>
     );
   }
 }
