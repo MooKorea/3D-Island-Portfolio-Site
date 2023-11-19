@@ -15,7 +15,7 @@ const TopContainer = styled(motion.div)`
 `;
 
 export default function BottomButtons() {
-  const { UI, setUI, isZoom, isFreeLook } = useCameraContext();
+  const { UI, isZoom, isFreeLook } = useCameraContext();
   const [scope, animate] = useAnimate();
   useEffect(() => {
     animate(
@@ -29,10 +29,9 @@ export default function BottomButtons() {
   return (
     <TopContainer ref={scope} initial={{ y: "-100%" }}>
       <Button
-        onClick={() => setUI(UIState.Home)}
         style={{ pointerEvents: isZoom ? "none" : "all" }}
       >
-        Back
+        Sauce
       </Button>
     </TopContainer>
   );

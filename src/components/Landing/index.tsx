@@ -1,33 +1,37 @@
 import { motion } from "framer-motion-3d";
 import { useFrame } from "@react-three/fiber";
-import Map from "../Map";
 import { useEffect, useRef, useState } from "react";
 import { MeshPortalMaterial, PortalMaterialType } from "@react-three/drei";
 import Name from "./Name";
-import { Senti } from "../../assets/Senti";
 import { easing } from "maath";
+import PlotContainer from "../ProjectsScene/PlotContainer"
+import { useCameraContext } from "../Contexts";
+import { Vector3 } from "three";
+import { UIState } from "../Contexts";
 
-interface Landing {
-  setScrollAmount: React.Dispatch<React.SetStateAction<number>>;
-}
-
-export default function Landing({ setScrollAmount }: Landing) {
+export default function Landing() {
   const portal = useRef<PortalMaterialType>(null!);
   const [isFade, setisFade] = useState(false);
   useFrame((_state, dt) => {
     easing.damp(portal.current, "blend", isFade ? 1 : 0, 0.1, dt);
   });
 
+  const { setDefaultLook, setCameraSpeed, setUI } = useCameraContext();
+
   useEffect(() => {
     setTimeout(() => {
       setisFade(true);
-      setScrollAmount(1);
-    }, 5000);
+    }, 4500);
+    setTimeout(() => {
+      setDefaultLook(new Vector3(0, -10, -15))
+      setCameraSpeed(0.2)
+      setUI(UIState.Map)
+    }, 4300);
   }, []);
 
   return (
     <>
-      <Name svg />
+      <Name />
       <hemisphereLight args={["#c9c9c9", "#707070", 0.5]} />
       <directionalLight position={[5, 20, 0]} intensity={1} />
 
@@ -36,7 +40,7 @@ export default function Landing({ setScrollAmount }: Landing) {
         initial={{ rotateY: Math.PI / 2 }}
         animate={{ rotateY: 0, scale: 10 }}
         transition={{
-          delay: 3.5,
+          delay: 3,
           duration: 3,
           ease: [0.6, 0, 0.4, 1],
           rotateY: {
@@ -47,18 +51,7 @@ export default function Landing({ setScrollAmount }: Landing) {
       >
         <planeGeometry />
         <MeshPortalMaterial worldUnits ref={portal}>
-          <pointLight position={[-1, -1, -4.9]} intensity={1} color="#6dd1ed" />
-          <pointLight position={[1, 1, -4.9]} intensity={1} color="#edbc6d" />
-          <pointLight position={[0, 10, -15]} intensity={200} color="#ecd8b8" />
-          <pointLight position={[2, -3, -30]} intensity={200} color="#f1e8cc" />
-          <pointLight position={[-2, -10, -6]} intensity={100} color="#eb878c" />
-          <Name />
-          <mesh position={[0, 0, -50]} scale={20}>
-            <planeGeometry args={[4, 4, 4]} />
-            <meshPhysicalMaterial />
-          </mesh>
-          <Senti />
-          <Map />
+          <PlotContainer />
         </MeshPortalMaterial>
       </motion.mesh>
     </>
