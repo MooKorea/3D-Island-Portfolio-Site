@@ -7,8 +7,8 @@ import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 
 const plotPositions = [
-  new Vector3(-4.5, 1.9, -2.5),
-  new Vector3(-2, 1.9, 2.5),
+  new Vector3(-4, 1.9, -1.5),
+  new Vector3(-1.5, 1.9, 2.5),
   new Vector3(1.5, 1.9, -0.5),
   new Vector3(2.2, 1, 2.6),
 ];
@@ -26,9 +26,9 @@ export default function PlotContainer() {
 
   return (
     <group position={[0, -10, -15]} ref={ref}>
-      <Environment map={envMap} background="only" />
-      <hemisphereLight args={["#c9c9c9", "#707070", 1]} />
-      <directionalLight position={[5, 20, 0]} intensity={1} />
+      <Environment map={envMap} background />
+      <hemisphereLight args={["#ee942d", "#ac7a59", 5]} />
+      <directionalLight position={[5, 20, 10]} intensity={1} />
       <Model />
       {plotPositions.map((e, i) => {
         return <Plot position={e} key={i} index={i} amount={plotPositions.length} />;

@@ -1,16 +1,17 @@
 import { Html } from "@react-three/drei";
-import { Vector3 } from "three";
 import { motion, useAnimate } from "framer-motion";
 import { useEffect } from "react";
 import { useCameraContext } from "../../Contexts";
 import { styled } from "styled-components";
+import { project } from "../../../assets/ProjectContent";
 
 const Bubble = styled.div`
   backdrop-filter: blur(8px);
   background-color: #ffffff47;
-  width: 100px;
   display: flex;
   justify-content: center;
+  text-align: center;
+  white-space: nowrap;
   align-items: center;
   border-radius: 20px;
   font-weight: 700;
@@ -18,21 +19,28 @@ const Bubble = styled.div`
   overflow: hidden;
   left: -50%;
   height: 2em;
+  
+  .label {
+    margin-inline: 1em;
+  }
 `;
 
+const previewWidth = "200px"
 const Description = styled(motion.div)`
   position: absolute;
+  white-space: pre-wrap;
+  text-align: left;
   padding: 1em;
   height: 100%;
-  width: 100%;
+  width: ${previewWidth};
 `;
 
 interface PlotBubble {
-  position: Vector3;
   isHovered: boolean;
+  projectData: project;
 }
 
-export default function PlotBubble({ position, isHovered }: PlotBubble) {
+export default function PlotBubble({ isHovered, projectData }: PlotBubble) {
   const [scope, animate] = useAnimate();
   const { isFreeLook, isZoom } = useCameraContext();
 
@@ -41,7 +49,7 @@ export default function PlotBubble({ position, isHovered }: PlotBubble) {
     if (scope.current === null) return;
     animate(scope.current, {
       height: isHovered ? 150 : "2em",
-      width: isHovered ? 200 : 100,
+      width: isHovered ? previewWidth : "auto",
       backgroundColor: isHovered ? "#ffffff8d" : "#ffffff47",
     });
   }, [isHovered]);
@@ -53,7 +61,7 @@ export default function PlotBubble({ position, isHovered }: PlotBubble) {
 
   return (
     <Html
-      position={new Vector3(position.x, position.y - 0.3, position.z)}
+    position={[0, -0.5, 0]}
       zIndexRange={[isHovered ? 110 : 100, 0]}
       wrapperClass="plot-bubble"
     >
@@ -70,13 +78,13 @@ export default function PlotBubble({ position, isHovered }: PlotBubble) {
             animate={{ opacity: isHovered ? 0 : 1 }}
             transition={{ delay: isHovered ? 0 : 0.2, duration: 0.1 }}
           >
-            you suck
+            <div className="label">{projectData.label}</div>
           </motion.div>
           <Description
             animate={{ opacity: isHovered ? 1 : 0 }}
             transition={{ delay: isHovered ? 0.2 : 0 }}
           >
-            I own a white vaporeon.
+            {projectData.shortDescription}
           </Description>
         </Bubble>
       </motion.div>
