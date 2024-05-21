@@ -1,7 +1,6 @@
 import { styled } from "styled-components";
 import BottomButtons from "./BottomButtons";
 import Sidebar from "./Sidebar";
-import TopButtons from "./TopButtons";
 
 const Container = styled.div`
   height: 100vh;
@@ -15,7 +14,6 @@ const Container = styled.div`
 export default function MapUI() {
   return (
     <Container>
-      <TopButtons />
       <Sidebar />
       <BottomButtons />
     </Container>
